@@ -1,0 +1,17 @@
+name: Build ZMK firmware
+on: [push, pull_request, workflow_dispatch]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check matrix, layout and keymaps
+        run: python3 scripts/check_config.py
+  build:
+    needs: validate
+    # ZMK v0.3: keep the build workflow aligned with config/west.yml.
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@edf5c0814fd3ea202e43aad2d68fd32e882a518c

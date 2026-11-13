@@ -1,0 +1,8 @@
+---
+include:
+  - board: nice_nano_v2
+    shield: handwired60
+    artifact-name: handwired60-nice_nano_v2
+  - board: nice_nano_v2
+    shield: settings_reset
+    artifact-name: settings-reset-nice_nano_v2

@@ -1,0 +1,9 @@
+file_format: "1"
+id: handwired60
+name: Handwired60
+type: shield
+url: https://github.com/Freezyi420/wireless-60-handwired-keyboard
+features:
+  - keys
+requires:
+  - pro_micro

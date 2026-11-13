@@ -1,0 +1,2 @@
+// Share the canonical 64-key public keymap, including the Fn layer.
+#include "../../../config/handwired60.keymap"

@@ -87,6 +87,6 @@ Run `python3 scripts/check_config.py` before publishing changes. CI checks the c
 - [HappyMangoStudios3D's original model](https://makerworld.com/en/models/557186-60-keyboard-with-arrow-keys).
 - [Roman Zabolotskikh / kanefron5's assembly guide](https://github.com/kanefron5/keyboard-manual), linked by the original designer, including its 64-key layout reference.
 - [ZMK firmware](https://github.com/zmkfirmware/zmk/tree/edf5c0814fd3ea202e43aad2d68fd32e882a518c).
-- (https://github.com/joric/nrfmicro/wiki/Alternatives) comparatif entre vrai nice nano V2 et version low-cost que j'utilise. 
+- [nRFMicro Wiki — Alternatives](https://github.com/joric/nrfmicro/wiki/Alternatives), comparison of nice!nano-compatible boards and lower-cost alternatives such as the SuperMini nRF52840. 
 
 The original 3D models and third-party material retain their own terms. They are linked, not redistributed or relicensed here.

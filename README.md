@@ -18,9 +18,9 @@ Public firmware for a **64-key ANSI keyboard with arrow keys**, based on [MakerW
 | Firmware | ZMK v0.3, pinned to release commit `edf5c0814fd3ea202e43aad2d68fd32e882a518c` |
 
 The GPIO mapping matches the working personal build. A SuperMini is **not** a Raspberry Pi Pico/RP2040: do not use the Pico pin numbers from the original assembly guide. See [wiring](docs/wiring.md) before soldering. Confirm your board's actual pad labels and pinout; a Pro Micro shape alone does not establish compatibility.
-Attention, la pi Pico utilisé par le créateur original ne possède pas de module bluetooth. 
+The Raspberry Pi Pico used by the original designer does not have built-in Bluetooth.
 
-J'ai utilisé la super mini car il s'agit d'une copie low-cost de la Nice Nano V2. D'après ce guide "https://github.com/joric/nrfmicro/wiki/Alternatives", il est déconseillé d'utiliser une copie car ces dernières peuvent poser des soucis dans le temps à cause de composants peu fiable. La copie est cependant bien détecté comme une Nice Nano V2 et est parfaitement compatible. J'ai pris ce risque car la copie coute autour des 8€ contre 25€ pour une vrai Nice Nano V2
+I chose the SuperMini nRF52840 as a low-cost alternative to the nice!nano v2. The [nRFMicro alternatives comparison](https://github.com/joric/nrfmicro/wiki/Alternatives) cautions that some inexpensive alternatives may suffer from component-quality or long-term reliability issues. My board works with the `nice_nano_v2` ZMK build target and has worked well in this keyboard, but that does not guarantee identical behavior across all clones. I accepted the trade-off because my board cost around **€8**, compared with approximately **€25** for a genuine nice!nano v2.
 
 The modified case with switch opening, controller holder, photos and 3MF files are not included yet. This repository currently documents the firmware and electrical configuration, rather than a complete illustrated mechanical build.
 
@@ -28,12 +28,12 @@ The modified case with switch opening, controller holder, photos and 3MF files a
 
 1. Open **[Actions → Build ZMK firmware](https://github.com/Freezyi420/wireless-60-handwired-keyboard/actions/workflows/build.yml)**. Choose a successful run on `main`, or choose **Run workflow** to build it. If using your own fork, enable Actions first.
 2. Download the **firmware** artifact and unzip it.
-3. Put the nRF52840 board in its UF2 bootloader, normally by briefly connecting **RST to GND twice** (la carte low-cost est parfois capricieuse pour passer en boot mode il faut parfait persévérer plusieurs fois. Elle clignotera avec sa led rouge quand le boot loader sera actif. Use a data-capable USB cable and check the instructions for your exact board revision.
+3. Put the nRF52840 board in its UF2 bootloader, normally by briefly connecting **RST to GND twice**. My low-cost board sometimes takes several attempts to enter bootloader mode; its red LED blinks when the bootloader is active. Use a data-capable USB cable and check the instructions for your exact board revision.
 4. Copy **`handwired60-nice_nano_v2.uf2`** to the bootloader drive. The board reboots automatically.
 5. Test all 64 keys over USB, then pair over Bluetooth as described below.
 
 `settings-reset-nice_nano_v2.uf2` is a separate recovery image that erases saved settings, including Bluetooth bonds. **It is not the keyboard firmware.** After using it, enter the bootloader again, flash the normal keyboard image and remove the old device from the host's Bluetooth settings before re-pairing.
-Il peut être utile de réinitialiser la puce grâce à ce fichier surtout car flasher un nouveau firmware n'affecte pas les paramètres bluetooth (clés etc) de la carte. Grâce à cette procédure vous pourrez donc repartir de zéro.  
+Running this reset image can be useful because flashing a new keyboard firmware generally does **not** erase saved Bluetooth pairing data (including bond keys). The reset procedure lets you start from a clean pairing state.
 
 For local build commands and troubleshooting, see [compilation and flashing](docs/build.md).
 

@@ -4,8 +4,6 @@
 
 Public firmware for a **64-key ANSI keyboard with arrow keys**, based on [MakerWorld model 557186 by HappyMangoStudios3D](https://makerworld.com/en/models/557186-60-keyboard-with-arrow-keys). This variant uses a SuperMini nRF52840 controller, a battery and ZMK for USB/Bluetooth operation.
 
-This is an independent repository. The owner's personal [Freezyi420/zmk-config](https://github.com/Freezyi420/zmk-config) is kept separate.
-
 ## Hardware and scope
 
 | Item | This configuration |
@@ -20,6 +18,9 @@ This is an independent repository. The owner's personal [Freezyi420/zmk-config](
 | Firmware | ZMK v0.3, pinned to release commit `edf5c0814fd3ea202e43aad2d68fd32e882a518c` |
 
 The GPIO mapping matches the working personal build. A SuperMini is **not** a Raspberry Pi Pico/RP2040: do not use the Pico pin numbers from the original assembly guide. See [wiring](docs/wiring.md) before soldering. Confirm your board's actual pad labels and pinout; a Pro Micro shape alone does not establish compatibility.
+Attention, la pi Pico utilisé par le créateur original ne possède pas de module bluetooth. 
+
+J'ai utilisé la super mini car il s'agit d'une copie low-cost de la Nice Nano V2. D'après ce guide "https://github.com/joric/nrfmicro/wiki/Alternatives", il est déconseillé d'utiliser une copie car ces dernières peuvent poser des soucis dans le temps à cause de composants peu fiable. La copie est cependant bien détecté comme une Nice Nano V2 et est parfaitement compatible. J'ai pris ce risque car la copie coute autour des 8€ contre 25€ pour une vrai Nice Nano V2
 
 The modified case with switch opening, controller holder, photos and 3MF files are not included yet. This repository currently documents the firmware and electrical configuration, rather than a complete illustrated mechanical build.
 
@@ -27,11 +28,12 @@ The modified case with switch opening, controller holder, photos and 3MF files a
 
 1. Open **[Actions → Build ZMK firmware](https://github.com/Freezyi420/wireless-60-handwired-keyboard/actions/workflows/build.yml)**. Choose a successful run on `main`, or choose **Run workflow** to build it. If using your own fork, enable Actions first.
 2. Download the **firmware** artifact and unzip it.
-3. Put the nRF52840 board in its UF2 bootloader, normally by briefly connecting **RST to GND twice**. Use a data-capable USB cable and check the instructions for your exact board revision.
+3. Put the nRF52840 board in its UF2 bootloader, normally by briefly connecting **RST to GND twice** (la carte low-cost est parfois capricieuse pour passer en boot mode il faut parfait persévérer plusieurs fois. Elle clignotera avec sa led rouge quand le boot loader sera actif. Use a data-capable USB cable and check the instructions for your exact board revision.
 4. Copy **`handwired60-nice_nano_v2.uf2`** to the bootloader drive. The board reboots automatically.
 5. Test all 64 keys over USB, then pair over Bluetooth as described below.
 
 `settings-reset-nice_nano_v2.uf2` is a separate recovery image that erases saved settings, including Bluetooth bonds. **It is not the keyboard firmware.** After using it, enter the bootloader again, flash the normal keyboard image and remove the old device from the host's Bluetooth settings before re-pairing.
+Il peut être utile de réinitialiser la puce grâce à ce fichier surtout car flasher un nouveau firmware n'affecte pas les paramètres bluetooth (clés etc) de la carte. Grâce à cette procédure vous pourrez donc repartir de zéro.  
 
 For local build commands and troubleshooting, see [compilation and flashing](docs/build.md).
 
@@ -84,7 +86,7 @@ Run `python3 scripts/check_config.py` before publishing changes. CI checks the c
 
 - [HappyMangoStudios3D's original model](https://makerworld.com/en/models/557186-60-keyboard-with-arrow-keys).
 - [Roman Zabolotskikh / kanefron5's assembly guide](https://github.com/kanefron5/keyboard-manual), linked by the original designer, including its 64-key layout reference.
-- [Freezyi420's working personal ZMK configuration](https://github.com/Freezyi420/zmk-config/tree/71a05aace51329212815df1d3792cff5ea3402ee), used for the electrical wiring, matrix and Fn layer.
 - [ZMK firmware](https://github.com/zmkfirmware/zmk/tree/edf5c0814fd3ea202e43aad2d68fd32e882a518c).
+- (https://github.com/joric/nrfmicro/wiki/Alternatives) comparatif entre vrai nice nano V2 et version low-cost que j'utilise. 
 
 The original 3D models and third-party material retain their own terms. They are linked, not redistributed or relicensed here.
